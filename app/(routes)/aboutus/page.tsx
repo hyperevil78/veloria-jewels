@@ -1,5 +1,7 @@
 import React from 'react';
 import { Gem, ShieldCheck, HandHeart } from 'lucide-react';
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
 
 export default function OurStoryPage() {
   return (
@@ -38,7 +40,9 @@ export default function OurStoryPage() {
 
         {/* Our Philosophy Section */}
         <div className="my-24 grid grid-cols-1 gap-16 md:grid-cols-3">
-          <div className="text-center">
+
+          <div data-aos="fade-up"
+     data-aos-duration="1000" className="text-center">
             <Gem size={40} className="mx-auto mb-4 text-amber-600" />
             <h3 className="mb-2 font-serif text-2xl font-medium text-black">
               Timeless Design
@@ -49,7 +53,10 @@ export default function OurStoryPage() {
               for generations.
             </p>
           </div>
-          <div className="text-center">
+
+
+          <div data-aos="fade-up"
+     data-aos-duration="1000" className="text-center">
             <ShieldCheck size={40} className="mx-auto mb-4 text-amber-600" />
             <h3 className="mb-2 font-serif text-2xl font-medium text-black">
               Ethical Sourcing
@@ -60,7 +67,10 @@ export default function OurStoryPage() {
               and recycled precious metals.
             </p>
           </div>
-          <div className="text-center">
+
+
+          <div data-aos="fade-up"
+     data-aos-duration="1000" className="text-center">
             <HandHeart size={40} className="mx-auto mb-4 text-amber-600" />
             <h3 className="mb-2 font-serif text-2xl font-medium text-black">
               Master Craftsmanship
@@ -71,18 +81,23 @@ export default function OurStoryPage() {
               setting, polish, and detail.
             </p>
           </div>
+
+
+
         </div>
 
         {/* Image & Text Section */}
         <div className="flex flex-col items-center gap-12 md:flex-row-reverse md:gap-16">
-          <div className="w-full md:w-1/2">
+
+          <div data-aos="fade-left" className="w-full md:w-1/2">
             <img 
               src="/images/artisan.jpg" 
               alt="Close-up of artisan's hands working on a gold ring" 
               className="h-full w-full object-cover rounded-md" 
             />
           </div>
-          <div className="w-full text-center md:w-1/2 md:text-left">
+
+          <div data-aos="fade-right" className="w-full text-center md:w-1/2 md:text-left">
             <h2 className="mb-6 font-serif text-3xl font-medium text-black md:text-4xl">
               The Heart of the Craft
             </h2>

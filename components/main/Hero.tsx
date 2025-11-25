@@ -21,7 +21,7 @@ const Hero = () => {
                Discover exquisite jewellery, crafted to perfection for your unforgettable moments.
              </p>
              <a
-               href="#"
+               href="/collections"
                className="bg-white px-8 py-3 font-semibold text-black transition-all duration-300 hover:bg-amber-500 hover:text-white rounded-md"
              >
                Shop The Collection

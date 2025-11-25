@@ -1,5 +1,6 @@
 "use client"
-// import Link from "next/link"
+
+import { GlowingEffect } from "../ui/Glowing-effect";
 
 const Category = () => {
   const categories = [
@@ -10,35 +11,69 @@ const Category = () => {
   ];
 
   return (
-    <section className="bg-white py-16 sm:py-24">
-      <div className="container mx-auto max-w-7xl px-6">
+    <section className="bg-white py-16 sm:py-24 ">
+      <div className="container mx-auto max-w-7xl px-6 ">
         <h2 className="mb-12 text-center font-serif text-3xl font-medium text-black md:text-4xl">
           Shop by Category
         </h2>
-        <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+
+        <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+          
           {categories.map((category) => (
-            <a 
-              href={category.path} 
-              key={category.name} 
-              className="group block" // Added block to ensure the whole area is clickable
-             
+            <GlowingEffect
+              key={category.name}
+              blur={0}
+              borderWidth={5}
+              spread={80}
+              glow={true}
+              disabled={false}
+              proximity={64}
+              inactiveZone={0.01}
+              className="rounded-lg"
             >
-              <div className="aspect-square w-full overflow-hidden bg-gray-100 rounded-sm">
-                <img
-                  src={category.image}
-                  alt={category.name}
-                  className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
-                />
+              <div className="relative z-10">
+                <a 
+                  href={category.path} 
+                  className="
+                    group 
+                    block 
+                    backdrop-blur-md 
+                    rounded-lg 
+                    border 
+                    border-white/40 
+                    bg-white/30 
+                    shadow-sm 
+                    hover:shadow-lg 
+                    transition-all 
+                    duration-300 
+                    hover:bg-white/40 
+                    hover:border-white/60
+                  "
+                >
+                  {/* Image */}
+                  <div className="aspect-square w-full overflow-hidden ">
+                    <img
+                      src={category.image}
+                      alt={category.name}
+                      className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
+
+                  {/* Title */}
+                  <div className="p-4 text-center">
+                    <h3 className="text-lg font-medium text-black">
+                      {category.name}
+                    </h3>
+                  </div>
+                </a>
               </div>
-              <h3 className="mt-4 text-center text-lg font-medium text-black">
-                {category.name}
-              </h3>
-            </a>
+            </GlowingEffect>
           ))}
+
         </div>
       </div>
     </section>
   );
 }
 
-export default Category
+export default Category;

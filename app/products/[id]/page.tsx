@@ -1,10 +1,12 @@
 // app/products/[id]/page.tsx
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { Star, Heart, ShieldCheck } from "lucide-react";
+
+import { LoaderThree } from "@/components/ui/loader";
 
 // Data + components (adjust paths if yours differ)
 import { allProducts } from "../../data/collections/product";
@@ -24,6 +26,15 @@ export default function ProductDetailsPage() {
   const [selectedImage, setSelectedImage] = useState(0);
   const [openAccordion, setOpenAccordion] = useState<number | null>(1);
 
+  // small loading guard: show loader while we determine if product exists
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    // if product is already available (synchronous import) we'll hide loader immediately;
+    // if product is undefined we still clear loader so that "Product Not Found" can show.
+    // This handles both static and potential async data sources in future.
+    setLoading(false);
+  }, [product]);
+
   const handleAccordionClick = (index: number) => {
     setOpenAccordion(openAccordion === index ? 0 : index);
   };
@@ -33,6 +44,9 @@ export default function ProductDetailsPage() {
 
   // compute saved state from the context (single source of truth)
   const saved = product ? isInWishlist(product.id) : false;
+
+  // show loader while resolving data
+  // if (loading) return <LoaderThree />;
 
   if (!product) {
     return (
@@ -61,10 +75,6 @@ export default function ProductDetailsPage() {
 
   return (
     <div className="bg-white text-gray-900">
-
-
-
-      
       {/* Dynamic Breadcrumbs: shows Collections path for collection items, category path for category items */}
       <nav className="container mx-auto max-w-7xl px-6 py-4 text-sm text-gray-500">
         <div className="flex items-center space-x-2">
@@ -95,7 +105,6 @@ export default function ProductDetailsPage() {
           <span className="text-black font-medium truncate">{product.name}</span>
         </div>
       </nav>
-
 
       <main className="container mx-auto max-w-7xl px-6 py-8 sm:py-12">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 items-start">

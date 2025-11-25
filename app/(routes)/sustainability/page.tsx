@@ -39,7 +39,8 @@ export default function SustainabilityPage() {
         <div className="container mx-auto max-w-7xl px-6">
           <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
             {/* Pillar 1 */}
-            <div className="flex flex-col items-center text-center">
+            <div data-aos="fade-up"
+     data-aos-duration="1000" className="flex flex-col items-center text-center">
               <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-md">
                 <Globe size={32} className="text-amber-600" />
               </div>
@@ -50,7 +51,8 @@ export default function SustainabilityPage() {
               </p>
             </div>
             {/* Pillar 2 */}
-            <div className="flex flex-col items-center text-center">
+            <div data-aos="fade-up"
+     data-aos-duration="1000" className="flex flex-col items-center text-center">
               <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-md">
                 <Recycle size={32} className="text-amber-600" />
               </div>
@@ -61,7 +63,8 @@ export default function SustainabilityPage() {
               </p>
             </div>
             {/* Pillar 3 */}
-            <div className="flex flex-col items-center text-center">
+            <div data-aos="fade-up"
+     data-aos-duration="1000" className="flex flex-col items-center text-center">
               <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-md">
                 <HeartHandshake size={32} className="text-amber-600" />
               </div>
@@ -78,14 +81,14 @@ export default function SustainabilityPage() {
       {/* Feature Section: Packaging */}
       <div className="container mx-auto max-w-7xl px-6 py-16 sm:py-24">
         <div className="flex flex-col items-center gap-12 md:flex-row">
-          <div className="w-full md:w-1/2">
+          <div data-aos="fade-right" className="w-full md:w-1/2">
             <img 
               src="/images/packaging.jpg" 
               alt="Minimalist, eco-friendly jewellery box" 
               className="h-full w-full object-cover rounded-lg" 
             />
           </div>
-          <div className="w-full md:w-1/2">
+          <div data-aos="fade-left" className="w-full md:w-1/2">
             <Package size={40} className="mb-6 text-amber-600" />
             <h2 className="mb-6 font-serif text-3xl font-medium text-black md:text-4xl">
               Sustainable Unboxing

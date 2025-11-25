@@ -4,6 +4,9 @@
 import React, { useState } from "react";
 import { Heart, Search, Menu, X, Trash2 } from "lucide-react";
 import Link from "next/link";
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
+import { useEffect } from "react";
 
 // <-- Correct relative import (case-sensitive file name)
 import { useWishlist } from "../../app/context/wishlistContext";
@@ -15,8 +18,17 @@ const Navbar: React.FC = () => {
   // --- CONNECT TO CONTEXT ---
   const { wishlist, removeFromWishlist } = useWishlist();
 
+
+  useEffect(() => {
+    AOS.init({
+      duration:500,
+      once:true
+    })
+  
+  })
+
   return (
-    <header className="sticky top-0 z-50 w-full bg-white shadow-sm">
+    <header data-aos="fade-down" className="sticky top-0 z-50 w-full bg-white shadow-sm">
       <nav className="container mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         {/* Left Side */}
         <div className="flex flex-1 items-center">

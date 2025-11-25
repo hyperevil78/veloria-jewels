@@ -5,6 +5,8 @@ import React from "react";
 import Link from "next/link";
 import { Filter, ChevronDown } from "lucide-react";
 import { allProducts } from "../../data/collections/product"; // adjust path if needed
+import { TypewriterEffect } from "@/components/ui/Typerwriter-effect";
+
 
 export default function RingsPage() {
   // Only include products that are in the "rings" category AND are NOT part of a special collection
@@ -14,13 +16,18 @@ export default function RingsPage() {
       (!p.collection || String(p.collection).trim() === "")
   );
 
+
+  const words = [{ text: "Rings", className: "font-serif text-4xl font-medium text-black md:text-5xl"}];
+
+
+
   return (
     <div className="bg-white text-gray-900">
       {/* Header */}
       <div className="container mx-auto max-w-7xl px-6 pt-16 pb-8">
-        <h1 className="font-serif text-4xl font-medium text-black md:text-5xl">
-          Rings
-        </h1>
+        {/* <h1 className="font-serif text-4xl font-medium text-black md:text-5xl"> */}
+           <TypewriterEffect words={words} />
+        {/* </h1> */}
         <p className="mt-4 max-w-xl text-lg text-gray-600">
           Graceful touch creates happiness.
         </p>

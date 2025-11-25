@@ -5,6 +5,7 @@ import React from "react";
 import Link from "next/link";
 import { Filter, ChevronDown } from "lucide-react";
 import { allProducts } from "../../data/collections/product"; // adjust path if needed
+import { TypewriterEffect } from "@/components/ui/Typerwriter-effect";
 
 export default function EarringsPage() {
   // Get only earrings category + exclude collection items
@@ -14,13 +15,14 @@ export default function EarringsPage() {
       (!p.collection || String(p.collection).trim() === "")
   );
 
+
+    const words = [{ text: "Earrings", className: "font-serif text-4xl font-medium text-black md:text-5xl"}];
+
   return (
     <div className="bg-white text-gray-900">
       {/* Header */}
       <div className="container mx-auto max-w-7xl px-6 pt-16 pb-8">
-        <h1 className="font-serif text-4xl font-medium text-black md:text-5xl">
-          Earrings
-        </h1>
+       <TypewriterEffect words={words} />
         <p className="mt-4 max-w-xl text-lg text-gray-600">
           From subtle studs to statement drops, discover the perfect frame for your face.
         </p>

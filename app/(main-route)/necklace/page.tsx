@@ -5,6 +5,7 @@ import React from "react";
 import Link from "next/link";
 import { Filter, ChevronDown } from "lucide-react";
 import { allProducts } from "../../data/collections/product"; // adjust path if needed
+import { TypewriterEffect } from "@/components/ui/Typerwriter-effect";
 
 export default function NecklacesPage() {
   // include only items explicitly categorized as "necklace" and not part of a special collection
@@ -14,13 +15,13 @@ export default function NecklacesPage() {
       (!p.collection || String(p.collection).trim() === "")
   );
 
+  const words = [{ text: "Necklaces", className: "font-serif text-4xl font-medium text-black md:text-5xl"}];
+
   return (
     <div className="bg-white text-gray-900">
       {/* Header Section */}
       <div className="container mx-auto max-w-7xl px-6 pt-16 pb-8">
-        <h1 className="font-serif text-4xl font-medium text-black md:text-5xl">
-          Necklaces
-        </h1>
+        <TypewriterEffect words={words} />
         <p className="mt-4 max-w-xl text-lg text-gray-600">
           Graceful adornments that capture the light and the imagination.
         </p>
@@ -63,7 +64,7 @@ export default function NecklacesPage() {
                 )}
 
                 <img
-                  src={product.images?.[0] ?? product.image ?? "/placeholder.webp"}
+                  src={product.images?.[0] ?? product.images ?? "/placeholder.webp"}
                   alt={product.name}
                   loading="lazy"
                   onError={(e) => {

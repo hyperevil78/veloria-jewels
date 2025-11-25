@@ -132,7 +132,7 @@ export default function TanzanitePage() {
           </p>
           {/* Updated to Link for internal navigation */}
           <a 
-            href="/book-appointment" 
+            href="/appointment" 
             className="inline-block bg-indigo-900 px-8 py-3 font-semibold text-white transition-colors hover:bg-indigo-800"
           >
             Speak to a Gemologist

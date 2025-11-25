@@ -1,5 +1,8 @@
 import React from 'react';
 import { Microscope, Sparkles, Diamond, Hand } from 'lucide-react';
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
+import { div } from 'motion/react-client';
 
 export default function CraftsmanshipPage() {
   return (
@@ -37,7 +40,9 @@ export default function CraftsmanshipPage() {
 
         {/* Core Pillars Section */}
         <div className="my-24 grid grid-cols-1 gap-16 md:grid-cols-3">
-          <div className="text-center">
+
+          <div data-aos="fade-up"
+     data-aos-duration="1000" className="text-center">
             <Diamond size={40} className="mx-auto mb-4 text-amber-600" />
             <h3 className="mb-2 font-serif text-2xl font-medium text-black">
               The Finest Materials
@@ -48,7 +53,9 @@ export default function CraftsmanshipPage() {
               recycled 18k gold and platinum.
             </p>
           </div>
-          <div className="text-center">
+
+          <div data-aos="fade-up"
+     data-aos-duration="1000" className="text-center">
             <Hand size={40} className="mx-auto mb-4 text-amber-600" />
             <h3 className="mb-2 font-serif text-2xl font-medium text-black">
               By Hand & Heart
@@ -59,7 +66,9 @@ export default function CraftsmanshipPage() {
               ensure a human touch that is simply irreplaceable.
             </p>
           </div>
-          <div className="text-center">
+
+          <div data-aos="fade-up"
+     data-aos-duration="1000" className="text-center">
             <Microscope size={40} className="mx-auto mb-4 text-amber-600" />
             <h3 className="mb-2 font-serif text-2xl font-medium text-black">
               Precision & Detail
@@ -74,14 +83,14 @@ export default function CraftsmanshipPage() {
 
         {/* Image & Text Section 1 */}
         <div className="flex flex-col items-center gap-12 md:flex-row md:gap-16">
-          <div className="w-full md:w-1/2">
+          <div data-aos="fade-right" className="w-full md:w-1/2">
             <img 
               src="/images/setter.jpg" 
               alt="Artisan meticulously setting a gemstone" 
               className="h-full w-full object-cover" 
             />
           </div>
-          <div className="w-full text-center md:w-1/2 md:text-left">
+          <div data-aos="fade-left" className="w-full text-center md:w-1/2 md:text-left">
             <h2 className="mb-6 font-serif text-3xl font-medium text-black md:text-4xl">
               The Setter's Art
             </h2>
@@ -101,14 +110,14 @@ export default function CraftsmanshipPage() {
 
         {/* Image & Text Section 2 (Reversed) */}
         <div className="mt-24 flex flex-col items-center gap-12 md:flex-row-reverse md:gap-16">
-          <div className="w-full md:w-1/2">
+          <div data-aos="fade-left" className="w-full md:w-1/2">
             <img 
               src="/images/polish.jpg" 
               alt="A finished gold ring being polished to a mirror shine" 
               className="h-full w-full object-cover" 
             />
           </div>
-          <div className="w-full text-center md:w-1/2 md:text-left">
+          <div data-aos="fade-right" className="w-full text-center md:w-1/2 md:text-left">
             <h2 className="mb-6 font-serif text-3xl font-medium text-black md:text-4xl">
               The Final Polish
             </h2>

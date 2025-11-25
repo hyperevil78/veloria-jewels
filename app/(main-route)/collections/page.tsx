@@ -1,5 +1,11 @@
+"use client"
 import React from 'react';
 // import Link from 'next/link'; 
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from 'react';
+
+
 
 // Data for the Gemstone Collections
 const collectionData = [
@@ -24,6 +30,15 @@ const collectionData = [
 ];
 
 export default function CollectionsPage() {
+
+
+  useEffect(() => {
+    AOS.init({
+      duration: 700,
+      once: true
+    })
+  })
+
   return (
     <div className="bg-white text-gray-800">
       {/* Hero Section */}
@@ -56,15 +71,15 @@ export default function CollectionsPage() {
       </div>
 
       {/* Collections List */}
-      <div className="container mx-auto max-w-7xl px-6 pb-16 sm:pb-24">
+      <div className="container mx-auto max-w-7xl px-6 pb-16 sm:pb-24 overflow-auto">
         <div className="space-y-24">
           {collectionData.map((collection, index) => (
-            <div
+            <div data-aos={index % 2 === 0 ? "fade-left" : "fade-right"}
               key={collection.name}
               className={`flex flex-col items-center gap-12 md:gap-16 ${
                 // Alternate layout: image left, text right, then reverse
                 index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-              }`}
+                }`}
             >
               {/* Image */}
               <div className="w-full md:w-1/2">
@@ -76,7 +91,7 @@ export default function CollectionsPage() {
                   />
                 </a>
               </div>
-              
+
               {/* Text Content */}
               <div className="w-full text-center md:w-1/2 md:text-left">
                 <h2 className="mb-6 font-serif text-3xl font-medium text-black md:text-4xl">

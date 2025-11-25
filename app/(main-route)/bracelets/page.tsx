@@ -5,6 +5,7 @@ import React from "react";
 import Link from "next/link";
 import { Filter, ChevronDown } from "lucide-react";
 import { allProducts } from "../../data/collections/product"; // adjust path if needed
+import { TypewriterEffect } from "@/components/ui/Typerwriter-effect";
 
 export default function BraceletsPage() {
   // include only items explicitly categorized as "bracelets" and not part of a special collection
@@ -14,13 +15,14 @@ export default function BraceletsPage() {
       (!p.collection || String(p.collection).trim() === "")
   );
 
+
+  const words = [{ text: "Bracelets", className: "font-serif text-4xl font-medium text-black md:text-5xl"}];
+
   return (
     <div className="bg-white text-gray-900">
       {/* Header Section */}
       <div className="container mx-auto max-w-7xl px-6 pt-16 pb-8">
-        <h1 className="font-serif text-4xl font-medium text-black md:text-5xl">
-          Bracelets
-        </h1>
+       <TypewriterEffect words={words} />
         <p className="mt-4 max-w-xl text-lg text-gray-600">
           From delicate chains to bold cuffs, designed to wrap your wrist in luxury.
         </p>
@@ -119,7 +121,7 @@ export default function BraceletsPage() {
             Looking to commemorate a milestone? Our bespoke service allows you to engrave, customize, or design a completely new bracelet that tells your story.
           </p>
           <a
-            href="/book-appointment"
+            href="/appointment"
             className="inline-block bg-black px-8 py-3 font-semibold text-white transition-colors hover:bg-amber-600 rounded-md"
           >
             Book a Consultation

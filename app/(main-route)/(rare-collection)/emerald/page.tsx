@@ -124,7 +124,7 @@ export default function EmeraldsPage() {
           </p>
           {/* Updated to Link for internal navigation */}
           <Link 
-            href="/book-appointment" 
+            href="/appointment" 
             className="inline-block bg-emerald-900 px-8 py-3 font-semibold text-white transition-colors hover:bg-emerald-800"
           >
             Speak to a Gemologist

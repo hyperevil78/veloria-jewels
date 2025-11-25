@@ -1,9 +1,22 @@
 "use client"
 // import Link from "next/link"
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
+
+import { useEffect } from 'react';
 
 const Featured = () => {
+
+  useEffect(() => {
+    AOS.init({
+      duration:700,
+      once:true
+    })
+  })
+  
+
   return (
-    <section className="bg-gray-50 py-16 sm:py-24">
+    <section data-aos="fade-up" className="bg-gray-50 py-16 sm:py-24">
       <div className="container mx-auto max-w-7xl px-6">
         <div className="flex flex-col items-center gap-12 md:flex-row">
           {/* Image */}
