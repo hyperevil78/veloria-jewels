@@ -1,9 +1,12 @@
+// layout.tsx
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { WishlistProvider } from "./context/wishlistContext";
+import { ClerkProvider } from "@clerk/nextjs";
 
 
 const geistSans = Geist({
@@ -30,11 +33,13 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <WishlistProvider>
-          <Navbar />
-          {children}
-          <Footer />
-        </WishlistProvider>
+        <ClerkProvider>
+          <WishlistProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </WishlistProvider>
+        </ClerkProvider>
       </body>
     </html>
   );
