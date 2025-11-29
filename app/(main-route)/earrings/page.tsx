@@ -64,7 +64,7 @@ export default function EarringsPage() {
                 )}
 
                 <img
-                  src={product.images?.[0] ?? product.image ?? "/placeholder.webp"}
+                  src={product.images?.[0] ?? product.images ?? "/placeholder.webp"}
                   alt={product.name}
                   loading="lazy"
                   onError={(e) => {
