@@ -6,8 +6,11 @@ import { useParams } from "next/navigation";
 import { Star, Heart, ShieldCheck } from "lucide-react";
 
 // --- Imports ---
+// 1. Import the data directly from your file
 import { allProducts } from "../../data/collections/product";
-import AccordionItem from "../../../components/accordian/Accordian";
+import AccordionItem from "@/components/accordian/Accordian";
+
+// --- Context ---
 import { useWishlist } from "../../context/wishlistContext";
 
 export default function ProductDetailsPage() {
@@ -15,33 +18,18 @@ export default function ProductDetailsPage() {
   // Handle ID safely
   const id = Array.isArray(params?.id) ? params.id[0] : params?.id;
 
-  // --- 1. STATE MANAGEMENT ---
-  const [product, setProduct] = useState<any>(null); 
-  const [loading, setLoading] = useState(true);      
+  // --- 1. FIND PRODUCT (Synchronous) ---
+  // We look up the product directly from the imported array. No loading state needed.
+  const product = allProducts.find((item) => item.id === id);
 
   const [selectedImage, setSelectedImage] = useState(0);
   const [openAccordion, setOpenAccordion] = useState<number | null>(1);
-
-  // --- 2. DATA FETCHING ---
-  // Simulating fetching data based on ID
-  useEffect(() => {
-    if (!id) return;
-    
-    // Find product in the local data file
-    // In a real DB scenario, this would be: fetch(`/api/products/${id}`)
-    const foundProduct = allProducts.find((p) => String(p.id) === String(id));
-    
-    if (foundProduct) {
-      setProduct(foundProduct);
-    }
-    setLoading(false);
-  }, [id]);
 
   const handleAccordionClick = (index: number) => {
     setOpenAccordion(openAccordion === index ? 0 : index);
   };
 
-  // --- 3. WISHLIST CONTEXT ---
+  // --- 2. WISHLIST CONTEXT ---
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
 
   // Compute saved state (safely check if product exists first)
@@ -55,7 +43,7 @@ export default function ProductDetailsPage() {
       name: product.name,
       price: product.price,
       image: product.images?.[0] ?? "",
-      // Fallback for category/collection mapping
+      // Map category fields based on what's available in your data
       category: product.collectionName ?? product.category ?? "Jewellery",
       collectionPath: product.collectionPath
     };
@@ -64,16 +52,7 @@ export default function ProductDetailsPage() {
     else addToWishlist(item);
   };
 
-  // --- 4. RENDER: LOADING ---
-  if (loading) {
-    return (
-      <div className="flex h-screen items-center justify-center bg-white text-gray-500">
-        Loading...
-      </div>
-    );
-  }
-
-  // --- 5. RENDER: NOT FOUND ---
+  // --- 3. RENDER: NOT FOUND ---
   if (!product) {
     return (
       <div className="flex min-h-[50vh] flex-col items-center justify-center bg-white text-gray-900">
@@ -86,7 +65,9 @@ export default function ProductDetailsPage() {
     );
   }
 
-  // --- 6. RENDER: MAIN PRODUCT ---
+  // --- 4. RENDER: MAIN PRODUCT ---
+  // Check for 'collectionGroup' (if you updated data) or 'collection' (old data)
+  // @ts-ignore - ignoring type check for flexible data structure
   const collectionKey = product.collectionGroup || product.collection;
 
   return (
