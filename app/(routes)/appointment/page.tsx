@@ -1,19 +1,57 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Calendar, Clock, MapPin, Video, CheckCircle } from 'lucide-react';
+import { Calendar, Clock, MapPin, Video, CheckCircle, AlertCircle } from 'lucide-react';
 
 export default function BookAppointmentPage() {
-  const [formStatus, setFormStatus] = useState('idle'); // idle, submitting, success
+  const [formStatus, setFormStatus] = useState('idle'); // idle, submitting, success, error
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormStatus('submitting');
-    // Simulate network request
-    setTimeout(() => {
+    setErrorMessage('');
+
+    // 1. Capture Form Data
+    const formData = new FormData(e.currentTarget);
+    
+    const appointmentData = {
+      firstName: formData.get('firstName'),
+      lastName: formData.get('lastName'),
+      email: formData.get('email'),
+      phone: formData.get('phone'),
+      type: formData.get('type'),
+      service: formData.get('service'),
+      date: formData.get('date'),
+      time: formData.get('time'),
+      notes: formData.get('notes'),
+    };
+
+    try {
+      // 2. Send to API
+      const response = await fetch('/api/appointments', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(appointmentData),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to book appointment');
+      }
+
+      // 3. Success
       setFormStatus('success');
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 1500);
+
+    } catch (error: any) {
+      console.error("Booking Error:", error);
+      setFormStatus('error');
+      setErrorMessage(error.message || "Something went wrong. Please try again.");
+    }
   };
 
   if (formStatus === 'success') {
@@ -40,11 +78,6 @@ export default function BookAppointmentPage() {
     <div className="bg-white">
       {/* Hero Section */}
       <div className="relative h-[50vh] w-full bg-black">
-        {/* <img
-          src="https://placehold.co/1600x800/111827/a18a6a?text=Private+Consultation"
-          alt="Elegant jewellery consultation setting"
-          className="absolute inset-0 h-full w-full object-cover opacity-50"
-        /> */}
         <div className="relative z-10 flex h-full flex-col items-center justify-center text-center text-white px-6">
           <h1 className="mb-4 font-serif text-4xl font-bold tracking-tight md:text-6xl">
             Book an Appointment
@@ -98,6 +131,14 @@ export default function BookAppointmentPage() {
           <div className="lg:col-span-2 bg-gray-50 p-8 md:p-12 rounded-2xl">
             <form onSubmit={handleSubmit} className="space-y-8">
               
+              {/* Error Message Display */}
+              {formStatus === 'error' && (
+                <div className="p-4 bg-red-50 text-red-800 rounded-md flex items-center gap-2">
+                  <AlertCircle size={20} />
+                  <span>{errorMessage}</span>
+                </div>
+              )}
+
               {/* Section 1: Personal Details */}
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-6 flex items-center">
@@ -107,19 +148,23 @@ export default function BookAppointmentPage() {
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   <div>
                     <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
-                    <input type="text" id="firstName" required className="w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-3" />
+                    {/* Added 'name' attribute */}
+                    <input type="text" name="firstName" id="firstName" required className="w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-3" />
                   </div>
                   <div>
                     <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
-                    <input type="text" id="lastName" required className="w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-3" />
+                    {/* Added 'name' attribute */}
+                    <input type="text" name="lastName" id="lastName" required className="w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-3" />
                   </div>
                   <div className="md:col-span-2">
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                    <input type="email" id="email" required className="w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-3" />
+                    {/* Added 'name' attribute */}
+                    <input type="email" name="email" id="email" required className="w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-3" />
                   </div>
                   <div className="md:col-span-2">
                     <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                    <input type="tel" id="phone" required className="w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-3" />
+                    {/* Added 'name' attribute */}
+                    <input type="tel" name="phone" id="phone" required className="w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-3" />
                   </div>
                 </div>
               </div>
@@ -147,13 +192,14 @@ export default function BookAppointmentPage() {
 
                   <div>
                     <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-1">Reason for Visit</label>
-                    <select id="service" className="w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-3">
-                      <option>Engagement Ring Consultation</option>
-                      <option>Wedding Bands</option>
-                      <option>Custom Design Service</option>
-                      <option>Jewellery Appraisal</option>
-                      <option>Repair & Restoration</option>
-                      <option>Other Inquiry</option>
+                    {/* Added 'name' attribute */}
+                    <select name="service" id="service" className="w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-3">
+                      <option value="Engagement Ring Consultation">Engagement Ring Consultation</option>
+                      <option value="Wedding Bands">Wedding Bands</option>
+                      <option value="Custom Design Service">Custom Design Service</option>
+                      <option value="Jewellery Appraisal">Jewellery Appraisal</option>
+                      <option value="Repair & Restoration">Repair & Restoration</option>
+                      <option value="Other Inquiry">Other Inquiry</option>
                     </select>
                   </div>
 
@@ -164,7 +210,8 @@ export default function BookAppointmentPage() {
                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                           <Calendar className="h-5 w-5 text-gray-400" />
                         </div>
-                        <input type="date" id="date" className="pl-10 w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-3" />
+                        {/* Added 'name' attribute */}
+                        <input type="date" name="date" id="date" required className="pl-10 w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-3" />
                       </div>
                     </div>
                     <div>
@@ -173,10 +220,11 @@ export default function BookAppointmentPage() {
                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                           <Clock className="h-5 w-5 text-gray-400" />
                         </div>
-                        <select id="time" className="pl-10 w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-3">
-                          <option>Morning (10am - 12pm)</option>
-                          <option>Afternoon (12pm - 4pm)</option>
-                          <option>Evening (4pm - 6pm)</option>
+                        {/* Added 'name' attribute */}
+                        <select name="time" id="time" className="pl-10 w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-3">
+                          <option value="Morning (10am - 12pm)">Morning (10am - 12pm)</option>
+                          <option value="Afternoon (12pm - 4pm)">Afternoon (12pm - 4pm)</option>
+                          <option value="Evening (4pm - 6pm)">Evening (4pm - 6pm)</option>
                         </select>
                       </div>
                     </div>
@@ -184,7 +232,8 @@ export default function BookAppointmentPage() {
 
                   <div>
                     <label htmlFor="notes" className="block text-sm font-medium text-gray-700 mb-1">Additional Notes (Optional)</label>
-                    <textarea id="notes" rows="3" className="w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-3" placeholder="Tell us a bit more about what you are looking for..."></textarea>
+                    {/* Added 'name' attribute */}
+                    <textarea name="notes" id="notes" rows={3} className="w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-3" placeholder="Tell us a bit more about what you are looking for..."></textarea>
                   </div>
                 </div>
               </div>
