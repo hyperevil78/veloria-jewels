@@ -1,4 +1,4 @@
-// app/rings/page.tsx
+// app/necklace/page.tsx
 "use client";
 
 import React from "react";
@@ -7,38 +7,36 @@ import { Filter, ChevronDown } from "lucide-react";
 import { allProducts } from "../../data/collections/product"; // adjust path if needed
 import { TypewriterEffect } from "@/components/ui/Typerwriter-effect";
 
-
-export default function RingsPage() {
-  // Only include products that are in the "rings" category AND are NOT part of a special collection
+export default function NecklacesPage() {
+  // include only items explicitly categorized as "necklace" and not part of a special collection
   const products = allProducts.filter(
     (p) =>
       String(p.category).toLowerCase() === "rings" &&
       (!p.collection || String(p.collection).trim() === "")
   );
 
-
-  const words = [{ text: "Rings", className: "font-serif text-4xl font-medium text-black md:text-5xl"}];
-
-
+  const words = [{ text: "Rings", className: "font-serif text-4xl font-medium text-black md:text-5xl" }];
 
   return (
     <div className="bg-white text-gray-900">
-      {/* Header */}
+      {/* Header Section */}
       <div className="container mx-auto max-w-7xl px-6 pt-16 pb-8">
-        {/* <h1 className="font-serif text-4xl font-medium text-black md:text-5xl"> */}
-           <TypewriterEffect words={words} />
-        {/* </h1> */}
+        <TypewriterEffect words={words} />
         <p className="mt-4 max-w-xl text-lg text-gray-600">
-          Graceful touch creates happiness.
+          Graceful adornments that capture the light and the imagination.
         </p>
       </div>
 
-      {/* Filter & Sort */}
-      <div className="sticky top-[72px] z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm">
+      {/* Filter & Sort Bar */}
+      <div className="sticky top-[72px] z-40 border-y border-gray-200 bg-white/95 backdrop-blur-sm">
         <div className="container mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <div className="flex items-center space-x-2 text-sm font-medium text-gray-700 hover:text-black cursor-pointer">
             <Filter size={18} />
             <span>Filter</span>
+          </div>
+
+          <div className="hidden md:block text-sm font-medium text-gray-500">
+            <span>{products.length} Products</span>
           </div>
 
           <div className="flex items-center space-x-2 text-sm font-medium text-gray-700 hover:text-black cursor-pointer">
@@ -57,6 +55,7 @@ export default function RingsPage() {
               href={`/products/${product.id}`}
               className="group relative"
             >
+              {/* Image container */}
               <div className="aspect-square w-full overflow-hidden bg-gray-100 rounded-sm relative">
                 {product.isNew && (
                   <span className="absolute top-3 left-3 z-10 bg-white px-2 py-1 text-xs font-bold uppercase tracking-widest text-black">
@@ -65,7 +64,7 @@ export default function RingsPage() {
                 )}
 
                 <img
-                  src={product.images?.[0] ?? product.image ?? "/placeholder.webp"}
+                  src={product.images?.[0] ?? product.images ?? "/placeholder.webp"}
                   alt={product.name}
                   loading="lazy"
                   onError={(e) => {
@@ -79,6 +78,7 @@ export default function RingsPage() {
                 </div>
               </div>
 
+              {/* Info */}
               <div className="mt-4 flex justify-between">
                 <div>
                   <h3 className="text-lg font-medium text-gray-900">{product.name}</h3>
@@ -88,7 +88,9 @@ export default function RingsPage() {
                 </div>
 
                 <p className="text-lg font-medium text-gray-900">
-                  {typeof product.price === "number" ? `$${product.price.toLocaleString()}` : product.price}
+                  {typeof product.price === "number"
+                    ? `$${product.price.toLocaleString()}`
+                    : product.price}
                 </p>
               </div>
             </Link>
@@ -96,9 +98,16 @@ export default function RingsPage() {
 
           {products.length === 0 && (
             <div className="col-span-full text-center text-gray-500 py-20">
-              No rings found. Check back later.
+              No necklaces found. Check back later.
             </div>
           )}
+        </div>
+
+        {/* Load more (optional) */}
+        <div className="mt-16 text-center">
+          <button className="border border-black bg-transparent px-8 py-3 text-sm font-semibold uppercase tracking-widest text-black transition-colors hover:bg-black hover:text-white">
+            Load More
+          </button>
         </div>
       </div>
 
@@ -106,17 +115,16 @@ export default function RingsPage() {
       <div className="bg-gray-50 py-16 sm:py-24">
         <div className="container mx-auto max-w-7xl px-6 text-center">
           <h2 className="mb-4 font-serif text-3xl font-medium text-black">
-            Dreaming of something unique?
+            Personalized Elegance
           </h2>
           <p className="mx-auto mb-8 max-w-2xl text-lg text-gray-600">
-            Our bespoke design service allows you to create a one-of-a-kind ring that tells your unique love story.
+            Whether it is a monogrammed locket or a custom-designed diamond collier, our artisans can bring your vision to life with impeccable craftsmanship.
           </p>
-
           <a
-            href="/appointment"
+            href="/book-appointment"
             className="inline-block bg-black px-8 py-3 font-semibold text-white transition-colors hover:bg-amber-600 rounded-md"
           >
-            Book an Appointment
+            Start Your Design
           </a>
         </div>
       </div>
