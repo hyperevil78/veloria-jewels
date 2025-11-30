@@ -1,18 +1,19 @@
 "use client";
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Phone, Mail, MapPin } from 'lucide-react';
 
 export default function ContactUs() {
-  const [formStatus, setFormStatus] = useState(null);
+  const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | null>(null);
 
-  const handleSubmit = (e) => {
+  // FIX: Added TypeScript type for the form event
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Simulate a form submission
     setFormStatus('sending'); 
     setTimeout(() => {
       setFormStatus('success');
-      e.target.reset();
+      e.currentTarget.reset(); // Use currentTarget instead of target for better type safety
       setTimeout(() => setFormStatus(null), 3000); // Reset status after 3s
     }, 1500);
   };
@@ -81,7 +82,7 @@ export default function ContactUs() {
                   id="name"
                   name="name"
                   required
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-3"
                 />
               </div>
               <div>
@@ -91,7 +92,7 @@ export default function ContactUs() {
                   id="email"
                   name="email"
                   required
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-3"
                 />
               </div>
               <div>
@@ -100,7 +101,7 @@ export default function ContactUs() {
                   type="tel"
                   id="phone"
                   name="phone"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-3"
                 />
               </div>
               <div>
@@ -108,16 +109,16 @@ export default function ContactUs() {
                 <textarea
                   id="message"
                   name="message"
-                  rows="5"
+                  rows={5} // Passed as number
                   required
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-3"
                 ></textarea>
               </div>
               <div>
                 <button
                   type="submit"
                   disabled={formStatus === 'sending'}
-                  className="w-full rounded-md bg-black px-8 py-3 font-semibold text-white shadow-sm transition-all duration-300 hover:bg-amber-600 hover:cursor-pointer disabled:cursor-not-allowed disabled:bg-gray-400"
+                  className="w-full rounded-md bg-black px-8 py-3 font-semibold text-white shadow-sm transition-all duration-300 hover:bg-amber-600 disabled:cursor-not-allowed disabled:bg-gray-400"
                 >
                   {formStatus === 'sending' ? 'Sending...' : 'Send Message'}
                 </button>
