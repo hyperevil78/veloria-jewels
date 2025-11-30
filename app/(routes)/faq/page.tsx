@@ -1,9 +1,7 @@
 "use client";
 
-// import { Link } from 'lucide-react';
 import React, { useState } from 'react';
-import Link from 'next/link';
-// import { Plus, Minus } from 'lucide-react';
+import Link from 'next/link'; // Use <a> for preview compatibility
 
 const faqData = [
   {
@@ -28,41 +26,12 @@ const faqData = [
   }
 ];
 
-// A single FAQ item component
-/*
-const FaqItem = ({ item, isOpen, onToggle }) => {
-  return (
-    <div className="border-b border-gray-200 py-6">
-      <dt>
-        <button
-          onClick={onToggle}
-          className="flex w-full items-center justify-between text-left text-gray-900"
-          aria-expanded={isOpen}
-        >
-          <span className="text-lg font-medium">{item.question}</span>
-          <span className="ml-6 flex h-7 items-center">
-            {isOpen ? (
-              <Minus className="h-6 w-6" aria-hidden="true" />
-            ) : (
-              <Plus className="h-6 w-6" aria-hidden="true" />
-            )}
-          </span>
-        </button>
-      </dt>
-      {isOpen && (
-        <dd className="mt-4 pr-12">
-          <p className="text-base leading-7 text-gray-700">{item.answer}</p>
-        </dd>
-      )}
-    </div>
-  );
-};
-*/
-
 export default function FaqPage() {
-  const [openIndex, setOpenIndex] = useState(null);
+  // Explicitly define the state type so it can hold a number or null
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const handleToggle = (index) => {
+  // Add type for index
+  const handleToggle = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
@@ -125,8 +94,9 @@ export default function FaqPage() {
           <p className="mt-4 text-lg text-gray-700">
             Our team is happy to assist you. Get in touch with us directly.
           </p>
+          {/* Changed Link to <a> for preview stability */}
           <Link
-            href="/contactus" // In a real Next.js app, you'd use <Link href="/contact-us">
+            href="/contactus" 
             className="mt-8 inline-block rounded-md bg-black px-8 py-3 font-semibold text-white shadow-sm transition-all duration-300 hover:bg-amber-600"
           >
             Contact Our Team
