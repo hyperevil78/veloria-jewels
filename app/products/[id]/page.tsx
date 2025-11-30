@@ -158,7 +158,7 @@ export default function ProductDetailsPage() {
             <div className="mt-10">
               <button
                 onClick={handleToggleWishlist}
-                className={`flex w-full items-center justify-center space-x-3 border py-4 text-sm font-bold uppercase tracking-widest transition-all duration-300 ${
+                className={`hover:cursor-pointer flex w-full items-center justify-center space-x-3 border py-4 text-sm font-bold uppercase tracking-widest transition-all duration-300 ${
                   saved ? "bg-black text-white border-black" : "bg-white text-black border-black hover:bg-gray-50"
                 }`}
               >
